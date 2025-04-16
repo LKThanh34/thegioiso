@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách danh mục</title>
+    <link th:href="@{/admin/css/bootstrap5.1.3.css}" rel="stylesheet">
+    <link th:href="@{/admin/css/styles.css}" rel="stylesheet">
+    <script th:src="@{/admin/js/bootstrapv5.1.3.js}"></script>
+</head>
+
+<body>
+    <div th:replace="admin/fragments/header :: siteHeader"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="admin/fragments/sidebar :: siteSidebar"></div>
+
+    <main class="content">
+        <div class="container-fluid">
+            <h2>Danh sách danh mục</h2>
+            <a th:href="@{/categories/create}" class="btn btn-primary mb-3">Thêm danh mục mới</a>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Mô tả</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td th:text="${category.description}"></td>
+                        <td>
+                            <a th:href="@{/categories/edit/{id}(id=${category.id})}"
+                                class="btn btn-sm btn-warning">Sửa</a>
+                            <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Bạn có chắc muốn xóa danh mục này?')">Xóa</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
