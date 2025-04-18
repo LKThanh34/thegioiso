@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link th:href="@{/admin/css/bootstrap5.1.3.css}" rel="stylesheet">
+    <link th:href="@{/admin/css/styles.css}" rel="stylesheet">
+    <script th:src="@{/admin/js/bootstrapv5.1.3.js}"></script>
+
+</head>
+
+<body>
+    <div th:replace="admin/fragments/header :: siteHeader"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="admin/fragments/sidebar :: siteSidebar"></div>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="container-fluid">
+            <h2>Dashboard Overview</h2>
+            <a th:href="@{/users/create}">Thêm người dùng mới</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Họ tên</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.fullName}"></td>
+                <td th:text="${user.role.name}"></td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id=${user.id})}">Sửa</a>
+                    <a th:href="@{/users/delete/{id}(id=${user.id})}" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="admin/fragments/footer :: siteFooter"></div>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link th:href="@{/admin/css/bootstrap5.1.3.css}" rel="stylesheet">
+    <link th:href="@{/admin/css/styles.css}" rel="stylesheet">
+    <script th:src="@{/admin/js/bootstrapv5.1.3.js}"></script>
+
+</head>
+
+<body>
+    <div th:replace="admin/fragments/header :: siteHeader"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="admin/fragments/sidebar :: siteSidebar"></div>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="container-fluid">
+            <h1 th:text="${product.id} ? 'Sửa sản phẩm' : 'Thêm sản phẩm'"></h1>
+
+            <div th:if="${error}" class="alert alert-danger">
+                <span th:text="${error}"></span>
+            </div>
+
+            <form th:action="${product.id} ? @{/products/update/{id}(id=${product.id})} : @{/products}"
+                th:object="${product}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Tên sản phẩm</label>
+                    <input type="text" th:field="*{name}" class="form-control" id="name">
+                    <div th:errors="*{name}" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Giá</label>
+                    <input type="number" step="0.01" th:field="*{price}" class="form-control" id="price">
+                    <div th:errors="*{price}" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Hình ảnh (URL)</label>
+                    <input type="text" th:field="*{image}" class="form-control" id="image">
+                </div>
+
+                <div class="mb-3">
+                    <label for="detailDesc" class="form-label">Mô tả chi tiết</label>
+                    <textarea th:field="*{detailDesc}" class="form-control" id="detailDesc"></textarea>
+                    <div th:errors="*{detailDesc}" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="shortDesc" class="form-label">Mô tả ngắn</label>
+                    <textarea th:field="*{shortDesc}" class="form-control" id="shortDesc"></textarea>
+                    <div th:errors="*{shortDesc}" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Số lượng</label>
+                    <input type="number" th:field="*{quantity}" class="form-control" id="quantity">
+                    <div th:errors="*{quantity}" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="sold" class="form-label">Đã bán</label>
+                    <input type="number" th:field="*{sold}" class="form-control" id="sold">
+                </div>
+
+                <div class="mb-3">
+                    <label for="factory" class="form-label">Nhà máy</label>
+                    <input type="text" th:field="*{factory}" class="form-control" id="factory">
+                </div>
+
+                <div class="mb-3">
+                    <label for="target" class="form-label">Mục tiêu</label>
+                    <input type="text" th:field="*{target}" class="form-control" id="target">
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryId" class="form-label">Danh mục</label>
+                    <select name="categoryId" class="form-control" id="categoryId">
+                        <option value="">Chọn danh mục</option>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"
+                            th:selected="${product.category != null and product.category.id == category.id}">
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <a th:href="@{/products}" class="btn btn-secondary">Hủy</a>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="admin/fragments/footer :: siteFooter"></div>
+</body>
+
+</html>

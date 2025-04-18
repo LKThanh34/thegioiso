@@ -1,5 +1,7 @@
 package com.lekimthanh.thegioiso.domain;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,10 +15,10 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private long quantity;
-    private double price;
+    private int quantity;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
