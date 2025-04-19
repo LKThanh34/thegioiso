@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lekimthanh.thegioiso.domain.User;
 import com.lekimthanh.thegioiso.repository.RoleRepository;
+
 import com.lekimthanh.thegioiso.service.UserService;
 
 import jakarta.validation.Valid;
@@ -65,7 +66,6 @@ public class UserController {
         return "admin/user/edit";
     }
 
-    // Handle update user
     @PostMapping("/edit/{id}")
     public String updateUser(@PathVariable Long id, @Valid @ModelAttribute("user") User user, BindingResult result,
             Model model) {

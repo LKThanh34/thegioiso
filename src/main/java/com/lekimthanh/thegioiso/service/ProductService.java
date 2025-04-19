@@ -35,7 +35,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    // Read
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -48,7 +47,6 @@ public class ProductService {
         return product.get();
     }
 
-    // Update
     public Product updateProduct(Long id, Product product, Long categoryId) {
         Optional<Product> existingProduct = productRepository.findById(id);
         if (existingProduct.isEmpty()) {

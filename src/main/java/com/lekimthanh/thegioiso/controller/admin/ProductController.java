@@ -28,14 +28,12 @@ public class ProductController {
         this.categoryRepository = categoryRepository;
     }
 
-    // List all products
     @GetMapping
     public String listProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "admin/products/list";
     }
 
-    // Show form to create new product
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("product", new Product());
@@ -43,7 +41,6 @@ public class ProductController {
         return "admin/products/form";
     }
 
-    // Create new product
     @PostMapping
     public String createProduct(@Valid @ModelAttribute("product") Product product,
             BindingResult result,
@@ -63,7 +60,6 @@ public class ProductController {
         }
     }
 
-    // Show form to edit product
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         try {
@@ -76,7 +72,6 @@ public class ProductController {
         }
     }
 
-    // Update product
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id,
             @Valid @ModelAttribute("product") Product product,
